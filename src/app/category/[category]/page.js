@@ -5,13 +5,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Header from '../../../components/layout/Header';
 
-import { getApiUrl } from '../../../../src/utils/config';
+import { BASE_URL } from '../../../../src/utils/config';
 
 async function getCategoryData(category) {
   try {
     const apiCategory = category.toLowerCase().replace(/-/g, '');
     
-    const response = await fetch(getApiUrl(`categories/${apiCategory}`), { 
+    const response = await fetch(BASE_URL(`categories/${apiCategory}`), { 
       next: { revalidate: 3600 }
     });
     
