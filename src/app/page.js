@@ -8,6 +8,8 @@ function HomePage() {
       <Header />
       <main>
         <TopArticlesSection />
+
+        
       </main>
     </div>
   );

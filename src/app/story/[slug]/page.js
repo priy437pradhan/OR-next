@@ -123,7 +123,6 @@ export default async function StoryPage({ params }) {
         </div>
       </header>
       
-      {/* Featured Image */}
       <div className="relative w-full h-64 md:h-96 mb-8">
         <Image
           src={article.image || '/images/placeholder.jpg'}
@@ -135,16 +134,12 @@ export default async function StoryPage({ params }) {
         />
       </div>
       
-      {/* Article Content */}
       <div className="max-w-3xl mx-auto">
-        {/* Excerpt/Introduction */}
         <div className="text-lg font-medium mb-6 text-gray-700 dark:text-gray-300">
           {article.excerpt}
         </div>
         
-        {/* Main Content/Description */}
         <div className="prose prose-lg max-w-none dark:prose-invert mb-8">
-          {/* This is where we'll render the description from the data */}
           {article.description ? (
             <div dangerouslySetInnerHTML={{ __html: article.description }} />
           ) : (
@@ -152,7 +147,6 @@ export default async function StoryPage({ params }) {
           )}
         </div>
         
-        {/* Article Footer */}
         <div className="border-t border-b py-6 dark:border-gray-700 mb-8">
           <div className="flex flex-wrap justify-between items-center gap-4">
             <div className="flex items-center gap-2">
@@ -190,7 +184,6 @@ export default async function StoryPage({ params }) {
         </div>
       </div>
       
-      {/* Related Articles Section */}
       {relatedArticles.length > 0 && (
         <div className="mt-12">
           <h2 className="text-2xl font-bold mb-6">Related Articles</h2>

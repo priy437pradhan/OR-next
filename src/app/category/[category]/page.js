@@ -4,14 +4,13 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { getApiUrl } from '../../../../src/utils/config';
+
 async function getCategoryData(category) {
   try {
-    // Format category for API call - lowercase without hyphens
     const apiCategory = category.toLowerCase().replace(/-/g, '');
     
-    // Use relative URL with base URL for server components
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/categories/${apiCategory}`, { 
+    const response = await fetch(getApiUrl(`categories/${apiCategory}`), { 
       next: { revalidate: 3600 }
     });
     
@@ -42,14 +41,12 @@ export async function generateMetadata({ params }) {
 export default async function CategoryPage({ params }) {
   const { category } = params;
   
-  // Format the category slug to display name (e.g., "breaking-news" to "Breaking News")
   const formattedCategory = category.replace(/-/g, ' ').split(' ')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
   
   const categoryData = await getCategoryData(category);
   
-  // If category doesn't exist or has no articles
   if (!categoryData) {
     notFound();
   }

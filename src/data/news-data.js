@@ -81,7 +81,7 @@ const newsData = {
       "slug": "film-festival-announcement",
       "title": "International Film Festival to be Hosted in Bhubaneswar",
       "excerpt": "The city is preparing to welcome filmmakers and artists from around the world for the prestigious event.",
-      "image": "/images/home-9.jpg",
+      "image": "/images/home-8.jpg",
       "date": "May 4, 2025",
       "category": "Entertainment"
     }
