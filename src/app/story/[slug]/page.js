@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import newsData from '../../../data/news-data';
-import { BASE_URL } from  '../../../../src/utils/config';
+import { BASE_URL } from '../../../../src/utils/config';
 import Header from '../../../components/layout/Header';
 
 async function getArticleBySlug(slug) {
@@ -27,7 +27,7 @@ async function getArticleBySlug(slug) {
 }
 
 export async function generateMetadata({ params }) {
-  const { slug } = params;
+  const { slug } = await params;
   const article = await getArticleBySlug(slug);
   
   if (!article) {
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function StoryPage({ params }) {
-  const { slug } = params;
+  const { slug } = await params;
   const article = await getArticleBySlug(slug);
   
   if (!article) {
@@ -60,15 +60,12 @@ export default async function StoryPage({ params }) {
   const categorySlug = article.category.toLowerCase().replace(/\s+/g, '-');
   const formattedDate = article.date;
   
-  // Handle author properly - determine if it's an object or a string
   const authorName = article.author && typeof article.author === 'object' 
     ? article.author.name || 'Anonymous' 
     : article.author || 'Anonymous';
   
-  // Generate author slug safely
   const authorSlug = authorName.toLowerCase().replace(/\s+/g, '-');
   
-  // Function to get related articles from the same category
   const getRelatedArticles = () => {
     const allArticles = [
       ...newsData.leftSideArticles,
@@ -114,12 +111,10 @@ export default async function StoryPage({ params }) {
           )}
         </div>
         
-        {/* Excerpt/Summary */}
         <div className="text-lg font-medium mb-6 text-gray-700 dark:text-gray-300 border-l-4 border-primary pl-4 py-2 bg-gray-100 dark:bg-gray-800">
           {article.excerpt}
         </div>
         
-        {/* Main Image */}
         <div className="relative w-full h-64 md:h-96 mb-8">
           <Image
             src={article.image || '/images/placeholder.jpg'}
@@ -131,13 +126,11 @@ export default async function StoryPage({ params }) {
           />
         </div>
         
-        {/* Date & read time */}
         <div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-8">
           <span className="mr-2">{formattedDate}</span>
           <span className="mx-2">•</span>
           <span>{article.readTime} min read</span>
           
-          {/* Share button */}
           <div className="ml-auto">
             <button className="flex items-center text-gray-500 hover:text-primary" aria-label="Share article">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -147,7 +140,6 @@ export default async function StoryPage({ params }) {
           </div>
         </div>
         
-        {/* Article content */}
         <div className="prose prose-lg max-w-none dark:prose-invert mb-12">
           {article.description ? (
             <div dangerouslySetInnerHTML={{ __html: article.description }} />
