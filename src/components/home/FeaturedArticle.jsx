@@ -3,7 +3,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const FeaturedArticle = ({ id, title, excerpt, category, image, date, slug, author }) => {
-  const categorySlug = category.toLowerCase().replace(/\s+/g, '');
+  // Safely handle category
+  const categorySlug = category ? category.toLowerCase().replace(/\s+/g, '-') : '';
+  
+  // Handle author properly - ensure we're not trying to call toLowerCase on an object
+  const authorName = author && typeof author === 'object' ? author.name || 'Anonymous' : author || 'Anonymous';
   
   return (
     <div className="mb-8 pb-8 border-b dark:border-gray-700">
@@ -13,7 +17,7 @@ const FeaturedArticle = ({ id, title, excerpt, category, image, date, slug, auth
           alt={title}
           fill
           className="object-cover rounded"
-          sizes="(max-width: 768px) 100vw, 50vw"
+          sizes="(max-width: 768px) 100vw, 50vw"  
         />
       </div>
       
@@ -36,18 +40,18 @@ const FeaturedArticle = ({ id, title, excerpt, category, image, date, slug, auth
       </p>
       
       <div className="flex items-center">
-        {author && author.avatar && (
+        {author && typeof author === 'object' && author.avatar && (
           <div className="w-10 h-10 rounded-full overflow-hidden relative mr-3">
             <Image 
               src={author.avatar} 
-              alt={author.name}
+              alt={authorName}
               fill
               className="object-cover"
             />
           </div>
         )}
         <div>
-          {author && <div className="font-medium">{author.name}</div>}
+          <div className="font-medium">{authorName}</div>
           <span className="text-xs text-gray-500">{date}</span>
         </div>
       </div>

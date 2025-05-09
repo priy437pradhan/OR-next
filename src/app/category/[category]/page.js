@@ -3,6 +3,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import Header from '../../../components/layout/Header';
 
 import { getApiUrl } from '../../../../src/utils/config';
 
@@ -52,7 +53,11 @@ export default async function CategoryPage({ params }) {
   }
   
   return (
-    <div className="container mx-auto px-4 py-8">
+    <>
+
+    <Header />
+    <div className="container">
+      
       <header className="mb-8">
         <h1 className="text-3xl font-bold mb-2">{formattedCategory}</h1>
         <p className="text-gray-600 dark:text-gray-300">
@@ -97,5 +102,6 @@ export default async function CategoryPage({ params }) {
         </div>
       )}
     </div>
+    </>
   );
 }

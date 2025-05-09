@@ -6,7 +6,7 @@ function HomePage() {
   return (
     <div className="OR-home-page">
       <Header />
-      <main>
+      <main className="container dark:bg-gray-900">
         <TopArticlesSection />
 
         
